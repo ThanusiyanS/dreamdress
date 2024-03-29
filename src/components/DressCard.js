@@ -1,22 +1,34 @@
 import React from "react";
 import Draggable from "react-draggable";
 import styled from "styled-components";
+import { useDrop } from "../pages/TrialOn";
 
 const DressCard = ({ dress }) => {
+  const { handleDrop, setItem } = useDrop();
   const handleDrag = (e, ui) => {
     console.log("x:", ui.x, "y:", ui.y);
+  };
+
+  const handleStop = (e, ui) => {
+    handleDrop(e, ui);
+    setItem(dress.id);
+    console.log(dress.id);
   };
   return (
     <Draggable
       onDrag={handleDrag}
+      onStop={handleStop ? handleStop : null}
       axis="both"
       position={{ x: 0, y: 0 }}
       scale={1}
     >
       <Box>
-        <img src={dress.img} alt={dress.name} height={80} width={50} />
-        <h2>{dress.name}</h2>
-        <Button>Try On</Button>
+        <img src={dress.img} alt={dress.name} height={100} width={100} />
+        <Text>{dress.name}</Text>
+        <Grid>
+          <h4>{dress.price} LKR</h4>
+          <Button>Try On</Button>
+        </Grid>
       </Box>
     </Draggable>
   );
@@ -24,10 +36,15 @@ const DressCard = ({ dress }) => {
 
 export default DressCard;
 
+const Text = styled.h2`
+  font-size: 24px;
+  margin: 0 !important;
+`;
+
 const Box = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   width: 250px;
   height: 200px;
@@ -45,6 +62,7 @@ const Button = styled.button`
   color: white;
   width: 70px;
   padding: 5px;
+  margin-inline: 10px;
   text-align: center;
   text-decoration: none;
   cursor: pointer;
@@ -54,4 +72,11 @@ const Button = styled.button`
     transform: scale(1.05); /* Slightly larger on hover for a subtle effect */
     transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
   }
+`;
+
+const Grid = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 `;

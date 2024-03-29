@@ -1,32 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import DressCard from "../../components/DressCard";
-
-const blouses = [
-  {
-    id: 1,
-    name: "Silk Blouse",
-    price: 2500,
-    img: "https://www.example.com/silk-blouse.jpg",
-  },
-  {
-    id: 2,
-    name: "Cotton Blouse",
-    price: 1800,
-    img: "https://www.example.com/cotton-blouse.jpg",
-  },
-  {
-    id: 3,
-    name: "Lace Blouse",
-    price: 2200,
-    img: "https://www.example.com/lace-blouse.jpg",
-  },
-];
+import { Data } from "../../data";
 
 const Blouse = () => {
   return (
     <Box>
-      {blouses.map((blouse) => (
+      {Data.Blouse.map((blouse) => (
         <DressCard key={blouse.id} dress={blouse} />
       ))}
     </Box>
